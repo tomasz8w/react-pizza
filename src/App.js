@@ -4,8 +4,7 @@ import Footer from './Footer'
 import Center from './Center'
 
 function App() {
-  const data = [{"pizza": "Capriciosa"},
-                {"pizza": "Margherita"}];
+
   const dataFile = require("./data.json");
   return (
     <div class="App">
