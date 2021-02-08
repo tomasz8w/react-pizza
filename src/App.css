@@ -1,52 +1,5 @@
 .App {
   display: flex;
   flex-direction: column;
-  background-color: #282c34;
   color: whitesmoke;
-}
-
-.Header {
-  align-items: center;
-  justify-content: center;
-  font-size: calc(20px + 2vmin);
-}
-
-.Center {
-  display: flex;
-  flex-direction: row;
-}
-
-.Footer {
-  font-size: 10px;
-  display: flex;
-  align-self: center;
-}
-
-.Menu {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: left;
-}
-
-.Menu > menu > li > button{
-  min-width: 150px;
-}
-
-.Menu > menu > li{
-  list-style-type: none;
-  margin: 0;
-}
-
-.Content {
-  flex-grow: 2;
-  display: flex;
-  flex-direction: column;
-}
-
-.PizzaItem {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 }
