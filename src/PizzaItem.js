@@ -2,11 +2,12 @@ import './PizzaItem.css'
 import PizzaItemHeader from './PizzaItemHeader'
 
 function PizzaItem(props){
+    const {name, description, price_medium} = props.pizza
     return (
     <div className="PizzaItem">
-        <PizzaItemHeader pizza={props.pizza}/>
+        <PizzaItemHeader pizzaName={name} pizzaPrice={price_medium}/>
         <div className="PizzaDescription">
-            <p>{props.pizza.description}</p>
+            <p>{description}</p>
         </div>
       
     </div>
