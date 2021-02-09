@@ -1,17 +1,17 @@
 .PizzaItem {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 .PizzaHeader {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .PizzaDescription {
-    display: flex;
-    flex-direction: row;
-    margin-left: 5%;
-    font-size: small;
+  display: flex;
+  flex-direction: row;
+  margin-left: 5%;
+  font-size: small;
 }
