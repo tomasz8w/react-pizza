@@ -4,14 +4,7 @@
   justify-content: space-between;
 }
 
-.PizzaHeader {
-  display: flex;
-  flex-direction: row;
-}
-
 .PizzaDescription {
-  display: flex;
-  flex-direction: row;
   margin-left: 5%;
   font-size: small;
 }
