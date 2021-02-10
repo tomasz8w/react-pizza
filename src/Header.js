@@ -1,7 +1,11 @@
-import './Header.css'
-
+import { AppBar, Toolbar } from '@material-ui/core';
 function Header() {
-    return (<div className="Header">Pizza portal</div>);
-  };
+  return (
+    <AppBar position="static">
+      <Toolbar>
+        Pizza portal
+      </Toolbar>
+    </AppBar>);
+};
 
 export default Header;

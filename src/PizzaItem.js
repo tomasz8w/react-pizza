@@ -1,17 +1,44 @@
-import './PizzaItem.css'
+import { Card, CardContent, Collapse, IconButton, Typography, CardActions, Grid } from '@material-ui/core';
+import { useState } from 'react';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PizzaItemHeader from './PizzaItemHeader'
 
-function PizzaItem(props){
-    const {name, description, price_medium} = props.pizza
+const pizzaImgSrc = ['pizza1.jpg', 'pizza2.jpg', 'pizza3.jpg', 'pizza4.jpg']
+
+function PizzaItem(props) {
+    const { name, description, price_medium } = props.pizza
+
+    const [expanded, setExpanded] = useState(false);
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
+
     return (
-    <div className="PizzaItem">
-        <PizzaItemHeader pizzaName={name} pizzaPrice={price_medium}/>
-        <div className="PizzaDescription">
-            <p>{description}</p>
-        </div>
-      
-    </div>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+            <Card>
+                <PizzaItemHeader pizzaName={name} pizzaPrice={price_medium} />
+                <CardContent>
+
+                    <CardActions disableSpacing>
+                        <IconButton
+                            onClick={handleExpandClick}
+                            aria-label="show-more"
+                            aria-expanded={expanded}>
+                            <ExpandMoreIcon />
+                        </IconButton>
+                    </CardActions>
+                    <Collapse in={expanded} timeout="auto" unmountOnExit>
+                        <CardContent>
+                            <Typography color="textSecondary" component="p">
+                                <p>{description}</p>
+                            </Typography>
+                        </CardContent>
+                    </Collapse>
+                </CardContent>
+            </Card>
+        </Grid>
     );
-  }
+}
 
 export default PizzaItem;

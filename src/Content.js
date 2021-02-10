@@ -1,10 +1,12 @@
-import PizzaItem from './PizzaItem'
+import PizzaItem from './PizzaItem';
+import { Grid } from '@material-ui/core'
 
-function Content(props){
-    return (
-      <div className="Content">
-        {props.data.map(pizza => <PizzaItem pizza={pizza} key={pizza.id}/>)}
-      </div>);
-  };
+function Content(props) {
+  return (
+    <Grid container direction="row" spacing={2}>
+      {props.data.map(pizza => <PizzaItem pizza={pizza} key={pizza.id} />)}
+    </Grid>
+  )
+};
 
 export default Content;
