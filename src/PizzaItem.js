@@ -6,7 +6,8 @@ import PizzaItemHeader from './PizzaItemHeader'
 const pizzaImgSrc = ['pizza1.jpg', 'pizza2.jpg', 'pizza3.jpg', 'pizza4.jpg']
 
 function PizzaItem(props) {
-    const { name, description, price_medium } = props.pizza
+    const { name, description, price } = props.pizza
+    const selectedSize = props.selectedSize
 
     const [expanded, setExpanded] = useState(false);
 
@@ -17,7 +18,7 @@ function PizzaItem(props) {
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
             <Card>
-                <PizzaItemHeader pizzaName={name} pizzaPrice={price_medium} />
+                <PizzaItemHeader pizzaName={name} pizzaPrices={price} selectedSize={selectedSize} />
                 <CardContent>
 
                     <CardActions disableSpacing>
