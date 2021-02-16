@@ -1,5 +1,6 @@
 import PizzaItem from './PizzaItem';
 import { useState } from "react";
+import data from './data.json'
 import { Checkbox, FormControl, FormHelperText, Grid, InputLabel, makeStyles, MenuItem, Select } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
@@ -33,12 +34,11 @@ function Content(props) {
         <FormControl className={classes.formControl}>
           <FormHelperText>Vege</FormHelperText>
           <Checkbox checked={onlyVegan} onChange={(event) => setOnlyVegan(event.target.checked)} />
-
         </FormControl>
       </Grid>
 
       {
-        (onlyVegan ? props.data.filter(pizza => pizza.vegetarian) : props.data)
+        (onlyVegan ? data.filter(pizza => pizza.vegetarian) : data)
           .map(pizza => <PizzaItem pizza={pizza} key={pizza.id} selectedSize={selectedSize} />)
       }
     </Grid>

@@ -17,7 +17,7 @@ function PizzaItem(props) {
 
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
-            <Card>
+            <Card style={{ "minHeight": "380px" }}>
                 <PizzaItemHeader pizzaName={name} pizzaPrices={price} selectedSize={selectedSize} />
                 <CardContent>
 
