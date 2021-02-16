@@ -1,13 +1,14 @@
-import { List, ListItem, ListItemText, Menu, MenuItem } from '@material-ui/core';
+import { List, ListItem, ListItemText, ListItemLink } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 function Navigation() {
   return (
     <List>
-      <ListItem button >
-        <ListItemText primary="Strona glowna" />
+      <ListItem button component={Link} to="/">
+        <ListItemText primary="Strona główna" />
       </ListItem>
-      <ListItem button >
-        <ListItemText primary="Kontakt" />
+      <ListItem button component={Link} to="/cart">
+        <ListItemText primary="Koszyk" />
       </ListItem>
     </List>
   );

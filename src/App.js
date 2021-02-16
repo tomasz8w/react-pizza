@@ -2,8 +2,9 @@ import Header from './Header'
 import Footer from './Footer'
 import Content from './Content'
 import Navigation from './Navigation'
-import data from './data.json'
+import Cart from './Cart'
 import { Grid } from '@material-ui/core'
+import { Switch, Route } from "react-router-dom";
 
 function App() {
 
@@ -18,12 +19,21 @@ function App() {
         <Grid item xs={3} sm={2}>
           <Navigation />
         </Grid>
-        <Grid item xs={9} sm={7}>
-          <Content data={data} />
+        <Grid item xs={9} sm={9}>
+
+          <Switch>
+            <Route exact path="/">
+              <Content />
+            </Route>
+            <Route path="/cart">
+              <Cart />
+            </Route>
+          </Switch>
+
         </Grid>
       </Grid>
 
-      <Grid item xs={12}>
+      <Grid container item xs={12} justify="center">
         <Footer />
       </Grid>
 
