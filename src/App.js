@@ -24,6 +24,12 @@ function App() {
     })
   }
 
+  function deleteFromCart(id) {
+    setCart((items) => {
+      return items.filter(i => i.id !== id);
+    })
+  }
+
   return (
     <Grid container direction='column'>
 
@@ -42,7 +48,7 @@ function App() {
               <Content addToCart={addToCart} data={data} />
             </Route>
             <Route path="/cart">
-              <Cart cart={cart} data={data} />
+              <Cart cart={cart} data={data} deleteFromCart={deleteFromCart} />
             </Route>
           </Switch>
 

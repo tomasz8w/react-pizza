@@ -5,6 +5,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles((theme) => (
     {
@@ -18,6 +20,7 @@ const useStyles = makeStyles((theme) => (
 export default function Cart(props) {
     const cart = props.cart;
     const data = props.data;
+    const deleteFromCart = props.deleteFromCart;
 
     const classes = useStyles();
 
@@ -41,6 +44,7 @@ export default function Cart(props) {
                                     <TableCell>Rozmiar</TableCell>
                                     <TableCell>Ilość</TableCell>
                                     <TableCell>Cena</TableCell>
+                                    <TableCell />
                                 </TableRow>
                             </TableHead>
 
@@ -59,6 +63,11 @@ export default function Cart(props) {
                                                     data.filter((pizza) => pizza.id === i.id)
                                                         .map((pizza) => pizza.price[i.size]) * i.quantity + " zł"
                                                 }
+                                            </TableCell>
+                                            <TableCell>
+                                                <IconButton onClick={() => { deleteFromCart(i.id) }} >
+                                                    <DeleteIcon />
+                                                </IconButton>
                                             </TableCell>
                                         </TableRow>
                                     ))
