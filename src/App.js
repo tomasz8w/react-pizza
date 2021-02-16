@@ -4,12 +4,20 @@ import Content from './Content'
 import Navigation from './Navigation'
 import Cart from './Cart'
 import data from './data.json'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Grid } from '@material-ui/core'
 import { Switch, Route } from "react-router-dom";
 
 function App() {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("cart")) ?? [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => localStorage.setItem("cart", JSON.stringify(cart)), [cart]);
 
   function addToCart(id, size) {
     setCart((items) => {
