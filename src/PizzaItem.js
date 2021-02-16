@@ -6,8 +6,9 @@ import PizzaItemHeader from './PizzaItemHeader'
 const pizzaImgSrc = ['pizza1.jpg', 'pizza2.jpg', 'pizza3.jpg', 'pizza4.jpg']
 
 function PizzaItem(props) {
-    const { name, description, price } = props.pizza
-    const selectedSize = props.selectedSize
+    const pizza = props.pizza;
+    const selectedSize = props.selectedSize;
+    const addToCart = props.addToCart;
 
     const [expanded, setExpanded] = useState(false);
 
@@ -18,7 +19,10 @@ function PizzaItem(props) {
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
             <Card style={{ "minHeight": "380px" }}>
-                <PizzaItemHeader pizzaName={name} pizzaPrices={price} selectedSize={selectedSize} />
+                <PizzaItemHeader
+                    pizza={pizza}
+                    selectedSize={selectedSize}
+                    addToCart={addToCart} />
                 <CardContent>
 
                     <CardActions disableSpacing>
@@ -32,7 +36,7 @@ function PizzaItem(props) {
                     <Collapse in={expanded} timeout="auto" unmountOnExit>
                         <CardContent>
                             <Typography color="textSecondary" component="p">
-                                <p>{description}</p>
+                                <p>{pizza.description}</p>
                             </Typography>
                         </CardContent>
                     </Collapse>

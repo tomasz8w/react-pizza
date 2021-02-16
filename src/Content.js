@@ -1,6 +1,5 @@
 import PizzaItem from './PizzaItem';
 import { useState } from "react";
-import data from './data.json'
 import { Checkbox, FormControl, FormHelperText, Grid, InputLabel, makeStyles, MenuItem, Select } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
@@ -11,7 +10,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Content(props) {
+  const data = props.data;
   const classes = useStyles();
+  const addToCart = props.addToCart;
 
   const [selectedSize, setSelectedSize] = useState("1");
   const [onlyVegan, setOnlyVegan] = useState(false);
@@ -39,7 +40,12 @@ function Content(props) {
 
       {
         (onlyVegan ? data.filter(pizza => pizza.vegetarian) : data)
-          .map(pizza => <PizzaItem pizza={pizza} key={pizza.id} selectedSize={selectedSize} />)
+          .map(pizza =>
+            <PizzaItem
+              pizza={pizza}
+              key={pizza.id}
+              selectedSize={selectedSize}
+              addToCart={addToCart} />)
       }
     </Grid>
   )

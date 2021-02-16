@@ -3,10 +3,26 @@ import Footer from './Footer'
 import Content from './Content'
 import Navigation from './Navigation'
 import Cart from './Cart'
+import data from './data.json'
+import { useState } from 'react'
 import { Grid } from '@material-ui/core'
 import { Switch, Route } from "react-router-dom";
 
 function App() {
+  const [cart, setCart] = useState([]);
+
+  function addToCart(id, size) {
+    setCart((items) => {
+      const productInCart = items.find((p) => p.id === id);
+      if (productInCart) {
+        return items.map((i) =>
+          i.id === id ? { ...i, quantity: i.quantity + 1 } : i
+        );
+      } else {
+        return [...items, { id, size, quantity: 1 }];
+      }
+    })
+  }
 
   return (
     <Grid container direction='column'>
@@ -23,10 +39,10 @@ function App() {
 
           <Switch>
             <Route exact path="/">
-              <Content />
+              <Content addToCart={addToCart} data={data} />
             </Route>
             <Route path="/cart">
-              <Cart />
+              <Cart cart={cart} data={data} />
             </Route>
           </Switch>
 
