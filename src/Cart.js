@@ -1,4 +1,4 @@
-import { Paper, Typography, Grid } from "@material-ui/core";
+import { Paper, Typography, Grid, makeStyles } from "@material-ui/core";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -6,14 +6,31 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
+const useStyles = makeStyles((theme) => (
+    {
+        paper: {
+            backgroundColor: theme.palette.primary.light,
+            color: theme.palette.primary.contrastText
+        }
+    }
+))
+
 export default function Cart(props) {
     const cart = props.cart;
     const data = props.data;
+
+    const classes = useStyles();
+
+    const cartSumValue = cart.map((cartElement) => (
+        data.filter(d => d.id === cartElement.id)
+            .map(d => d.price[cartElement.size])
+    )).reduce((sum, e) => sum + e[0], 0);
+
     return (
         <Grid container style={{ "margin": "10px", "padding": "10px" }} direction="row" justify="center">
-            <Grid item xs={12} sm={8} >
-                <Paper align="center">
-                    <Typography variant="h3">Cart</Typography>
+            <Grid item xs={12} md={8} >
+                <Paper align="center" className={classes.paper}>
+                    <Typography variant="h4">KOSZYK</Typography>
 
                     <TableContainer component={Paper}>
                         <Table>
@@ -26,11 +43,13 @@ export default function Cart(props) {
                                     <TableCell>Cena</TableCell>
                                 </TableRow>
                             </TableHead>
+
+
                             <TableBody>
                                 {
                                     cart.map((i) =>
                                     (
-                                        <TableRow>
+                                        <TableRow key={`${i.id}_${i.size}`}>
                                             <TableCell>{i.id}</TableCell>
                                             <TableCell>{data.filter((pizza) => pizza.id === i.id).map((pizza) => pizza.name)}</TableCell>
                                             <TableCell>{i.size}</TableCell>
@@ -38,19 +57,23 @@ export default function Cart(props) {
                                             <TableCell>
                                                 {
                                                     data.filter((pizza) => pizza.id === i.id)
-                                                        .map((pizza) => pizza.price[i.size]) * i.quantity
+                                                        .map((pizza) => pizza.price[i.size]) * i.quantity + " zł"
                                                 }
-                                                zł
                                             </TableCell>
                                         </TableRow>
                                     ))
                                 }
+
+                                <TableRow>
+                                    <TableCell colSpan={3}></TableCell>
+                                    <TableCell align="right">Suma</TableCell>
+                                    <TableCell>{cartSumValue} zł</TableCell>
+                                </TableRow>
                             </TableBody>
                         </Table>
-
                     </TableContainer>
                 </Paper>
             </Grid>
-        </Grid>
+        </Grid >
     );
 }
