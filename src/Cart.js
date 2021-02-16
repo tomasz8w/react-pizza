@@ -65,7 +65,7 @@ export default function Cart(props) {
                                                 }
                                             </TableCell>
                                             <TableCell>
-                                                <IconButton onClick={() => { deleteFromCart(i.id) }} >
+                                                <IconButton onClick={() => { deleteFromCart(i.id, i.size) }} >
                                                     <DeleteIcon />
                                                 </IconButton>
                                             </TableCell>

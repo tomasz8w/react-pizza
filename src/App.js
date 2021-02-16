@@ -13,10 +13,10 @@ function App() {
 
   function addToCart(id, size) {
     setCart((items) => {
-      const productInCart = items.find((p) => p.id === id);
+      const productInCart = items.find((p) => p.id === id && p.size === size);
       if (productInCart) {
-        return items.map((i) =>
-          i.id === id ? { ...i, quantity: i.quantity + 1 } : i
+        return items.map(i =>
+          (i.id === id && i.size === size) ? { ...i, quantity: i.quantity + 1 } : i
         );
       } else {
         return [...items, { id, size, quantity: 1 }];
@@ -24,9 +24,9 @@ function App() {
     })
   }
 
-  function deleteFromCart(id) {
+  function deleteFromCart(id, size) {
     setCart((items) => {
-      return items.filter(i => i.id !== id);
+      return items.filter(i => (i.id !== id) || (i.id === id && i.size !== size))
     })
   }
 
