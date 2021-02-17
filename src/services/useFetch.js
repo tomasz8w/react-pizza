@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 
 export default function useFetch(url) {
     const [data, setData] = useState([]);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function initData() {
@@ -16,11 +18,13 @@ export default function useFetch(url) {
                     throw response;
                 }
             } catch (e) {
-                console.log('error loading data')
+                setError(e);
+            } finally {
+                setLoading(false);
             }
         }
         initData();
     }, [url]);
 
-    return { data };
+    return { data, error, loading };
 }

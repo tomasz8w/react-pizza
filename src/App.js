@@ -3,6 +3,7 @@ import Footer from "./Footer";
 import Content from "./Content";
 import Navigation from "./Navigation";
 import Cart from "./Cart";
+import Error from "./Error"
 import { useState, useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import { Switch, Route } from "react-router-dom";
@@ -17,7 +18,7 @@ function App() {
     }
   });
 
-  const { data } = useFetch("data.json");
+  const { data, error, loading } = useFetch("data.json");
 
   useEffect(() => localStorage.setItem("cart", JSON.stringify(cart)), [cart]);
 
@@ -68,19 +69,24 @@ function App() {
           <Navigation />
         </Grid>
         <Grid item xs={9} sm={9}>
-          <Switch>
-            <Route exact path="/">
-              <Content addToCart={addToCart} data={data} />
-            </Route>
-            <Route path="/cart">
-              <Cart
-                cart={cart}
-                data={data}
-                deleteFromCart={deleteFromCart}
-                changeQuantity={changeQuantity}
-              />
-            </Route>
-          </Switch>
+          {!loading && !error &&
+            <Switch>
+              <Route exact path="/">
+                <Content addToCart={addToCart} data={data} />
+              </Route>
+              <Route path="/cart">
+                <Cart
+                  cart={cart}
+                  data={data}
+                  deleteFromCart={deleteFromCart}
+                  changeQuantity={changeQuantity}
+                />
+              </Route>
+            </Switch>
+          }
+          {error &&
+            <Error />
+          }
         </Grid>
       </Grid>
 
