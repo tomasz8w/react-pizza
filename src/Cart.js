@@ -1,20 +1,32 @@
-import { Paper, Typography, Grid, makeStyles } from "@material-ui/core";
+import { Paper, Typography, Grid, makeStyles, Avatar, IconButton } from "@material-ui/core";
+import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import IconButton from "@material-ui/core/IconButton";
+
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     backgroundColor: theme.palette.primary.light,
     color: theme.palette.primary.contrastText,
   },
+  avatarSelected: {
+    color: theme.palette.primary.contrastText,
+    backgroundColor: theme.palette.secondary.light,
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+  },
+  avatar: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+  }
 }));
 
 export default function Cart(props) {
@@ -48,7 +60,6 @@ export default function Cart(props) {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Id</TableCell>
                   <TableCell>Nazwa</TableCell>
                   <TableCell>Rozmiar</TableCell>
                   <TableCell>Ilość</TableCell>
@@ -60,13 +71,20 @@ export default function Cart(props) {
               <TableBody>
                 {cart.map((i) => (
                   <TableRow key={`${i.id}_${i.size}`}>
-                    <TableCell>{i.id}</TableCell>
                     <TableCell>
                       {data
                         .filter((pizza) => pizza.id === i.id)
                         .map((pizza) => pizza.name)}
                     </TableCell>
-                    <TableCell>{i.size}</TableCell>
+                    {
+                      <TableCell >
+                        <AvatarGroup>
+                          <Avatar className={parseInt(i.size) === 0 ? classes.avatarSelected : classes.avatar}>S</Avatar>
+                          <Avatar className={parseInt(i.size) === 1 ? classes.avatarSelected : classes.avatar}>M</Avatar>
+                          <Avatar className={parseInt(i.size) === 2 ? classes.avatarSelected : classes.avatar}>L</Avatar>
+                        </AvatarGroup>
+                      </TableCell>
+                    }
                     <TableCell>
                       <IconButton
                         onClick={() => {
