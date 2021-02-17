@@ -29,7 +29,7 @@ export default function Cart(props) {
     .map((cartElement) =>
       data
         .filter((d) => d.id === cartElement.id)
-        .map((d) => d.price[cartElement.size])
+        .map((d) => d.price[cartElement.size] * cartElement.quantity)
     )
     .reduce((sum, e) => sum + e[0], 0);
 
