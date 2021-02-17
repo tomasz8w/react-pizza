@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
 function Content(props) {
   const data = props.data;
   const classes = useStyles();
-  const addToCart = props.addToCart;
+  const dispatch = props.dispatch;
 
   const [selectedSize, setSelectedSize] = useState("1");
   const [onlyVegan, setOnlyVegan] = useState(false);
@@ -45,7 +45,7 @@ function Content(props) {
               pizza={pizza}
               key={pizza.id}
               selectedSize={selectedSize}
-              addToCart={addToCart} />)
+              dispatch={dispatch} />)
       }
     </Grid>
   )

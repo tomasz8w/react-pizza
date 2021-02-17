@@ -32,8 +32,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Cart(props) {
   const cart = props.cart;
   const data = props.data;
-  const changeQuantity = props.changeQuantity;
-  const deleteFromCart = props.deleteFromCart;
+  const dispatch = props.dispatch;
 
   const classes = useStyles();
 
@@ -88,7 +87,7 @@ export default function Cart(props) {
                     <TableCell>
                       <IconButton
                         onClick={() => {
-                          changeQuantity(i.id, i.size, -1);
+                          dispatch({ type: 'modify', id: i.id, size: i.size, changeQuantityStep: -1 });
                         }}
                       >
                         <RemoveIcon fontSize="small" />
@@ -96,7 +95,7 @@ export default function Cart(props) {
                       {i.quantity}
                       <IconButton
                         onClick={() => {
-                          changeQuantity(i.id, i.size, 1);
+                          dispatch({ type: 'modify', id: i.id, size: i.size, changeQuantityStep: 1 });
                         }}
                       >
                         <AddIcon fontSize="small" />
@@ -112,7 +111,7 @@ export default function Cart(props) {
                     <TableCell>
                       <IconButton
                         onClick={() => {
-                          deleteFromCart(i.id, i.size);
+                          dispatch({ type: 'delete', id: i.id, size: i.size });
                         }}
                       >
                         <DeleteIcon />

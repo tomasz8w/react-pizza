@@ -8,7 +8,7 @@ const pizzaImgSrc = ['pizza1.jpg', 'pizza2.jpg', 'pizza3.jpg', 'pizza4.jpg']
 function PizzaItem(props) {
     const pizza = props.pizza;
     const selectedSize = props.selectedSize;
-    const addToCart = props.addToCart;
+    const dispatch = props.dispatch;
 
     const [expanded, setExpanded] = useState(false);
 
@@ -22,7 +22,7 @@ function PizzaItem(props) {
                 <PizzaItemHeader
                     pizza={pizza}
                     selectedSize={selectedSize}
-                    addToCart={addToCart} />
+                    dispatch={dispatch} />
                 <CardContent>
 
                     <CardActions disableSpacing>

@@ -8,7 +8,7 @@ import pizzaImg4 from './img/pizza2.jpg'
 
 function PizzaItemHeader(props) {
     const pizza = props.pizza;
-    const addToCart = props.addToCart;
+    const dispatch = props.dispatch;
     const selectedSize = props.selectedSize;
 
     const pizzaImgSrc = [pizzaImg1, pizzaImg2, pizzaImg3, pizzaImg4];
@@ -24,7 +24,7 @@ function PizzaItemHeader(props) {
             <CardHeader title={pizza.name}
                 subheader={getPizzaPrice() + " zł"}
                 action={
-                    <IconButton onClick={() => { addToCart(pizza.id, selectedSize) }}>
+                    <IconButton onClick={() => { dispatch({ type: 'add', id: pizza.id, size: selectedSize }) }}>
                         <AddShoppingCartIcon />
                     </IconButton>} />
             <CardMedia
