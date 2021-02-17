@@ -3,10 +3,10 @@ import Footer from "./Footer";
 import Content from "./Content";
 import Navigation from "./Navigation";
 import Cart from "./Cart";
-import data from "./data.json";
 import { useState, useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import { Switch, Route } from "react-router-dom";
+import useFetch from './services/useFetch'
 
 function App() {
   const [cart, setCart] = useState(() => {
@@ -16,6 +16,8 @@ function App() {
       return [];
     }
   });
+
+  const { data } = useFetch("data.json");
 
   useEffect(() => localStorage.setItem("cart", JSON.stringify(cart)), [cart]);
 
