@@ -12,7 +12,6 @@ export default function useFetch(url) {
                 if (response.ok) {
                     const json = await response.json();
                     setData(json);
-                    console.log("all ok")
                 }
                 else {
                     throw response;
