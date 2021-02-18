@@ -19,15 +19,22 @@ export default function cartReducer(state, action) {
             } else {
                 return [...state, { id, size, quantity: 1 }];
             }
-
         }
-        case 'modify': {
-            const { id, size, changeQuantityStep } = action;
+        case 'increment': {
+            const { id, size } = action;
+            return state.map(i =>
+                i.id === id && i.size === size
+                    ? { ...i, quantity: i.quantity + 1 }
+                    : i
+            );
+        }
+        case 'decrement': {
+            const { id, size } = action;
             const productInCart = getProductFromCart(id, size);
-            if (productInCart.quantity + changeQuantityStep > 0) {
+            if (productInCart.quantity > 1) {
                 return state.map((i) =>
                     i.id === id && i.size === size
-                        ? { ...i, quantity: i.quantity + changeQuantityStep }
+                        ? { ...i, quantity: i.quantity - 1 }
                         : i
                 );
             } else return state;

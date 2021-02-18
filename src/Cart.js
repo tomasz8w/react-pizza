@@ -87,7 +87,7 @@ export default function Cart(props) {
                     <TableCell>
                       <IconButton
                         onClick={() => {
-                          dispatch({ type: 'modify', id: i.id, size: i.size, changeQuantityStep: -1 });
+                          dispatch({ type: 'decrement', id: i.id, size: i.size });
                         }}
                       >
                         <RemoveIcon fontSize="small" />
@@ -95,7 +95,7 @@ export default function Cart(props) {
                       {i.quantity}
                       <IconButton
                         onClick={() => {
-                          dispatch({ type: 'modify', id: i.id, size: i.size, changeQuantityStep: 1 });
+                          dispatch({ type: 'increment', id: i.id, size: i.size });
                         }}
                       >
                         <AddIcon fontSize="small" />
