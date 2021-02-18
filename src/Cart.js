@@ -68,7 +68,7 @@ export default function Cart(props) {
               </TableHead>
 
               <TableBody>
-                {cart.map((i) => (
+                {cart.map(i => (
                   <TableRow key={`${i.id}_${i.size}`}>
                     <TableCell>
                       {data
@@ -86,6 +86,7 @@ export default function Cart(props) {
                     }
                     <TableCell>
                       <IconButton
+                        disabled={parseInt(i.quantity) === 1 ? true : false}
                         onClick={() => {
                           dispatch({ type: 'decrement', id: i.id, size: i.size });
                         }}
