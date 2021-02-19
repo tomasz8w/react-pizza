@@ -8,11 +8,13 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(2),
   },
+  iconSort: {
+    transform: reverseSorting => reverseSorting ? "rotate(180deg)" : "rotate(0deg)",
+  }
 }));
 
 function Content(props) {
   const pizzaList = props.data;
-  const classes = useStyles();
   const dispatch = props.dispatch;
 
   const [selectedSize, setSelectedSize] = useState("1");
@@ -20,6 +22,8 @@ function Content(props) {
   const [sort, setSort] = useState("name");
   const [reverseSorting, setReverseSorting] = useState(false);
   const sortedPizzaList = reverseSorting ? sortBy(pizzaList, sort) : sortBy(pizzaList, sort).reverse();
+
+  const classes = useStyles(reverseSorting);
 
   function handleSortChange(sortType) {
     if (sortType === "name") {
@@ -53,7 +57,7 @@ function Content(props) {
           </Select>
         </FormControl>
         <FormControl className={classes.formControl} >
-          <IconButton onClick={() => setReverseSorting(!reverseSorting)}>
+          <IconButton className={classes.iconSort} onClick={() => setReverseSorting(!reverseSorting)}>
             <SortIcon />
           </IconButton>
         </FormControl>
