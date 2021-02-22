@@ -7,7 +7,7 @@ function PizzaItem(props) {
     const dispatch = props.dispatch;
 
     return (
-        <Grid item xs={12} sm={6} md={4} lg={3}>
+        <Grid item xs={10} sm={8} md={6} lg={4} >
             <Card style={{ "minHeight": "380px" }}>
                 <PizzaItemHeader
                     pizza={pizza}

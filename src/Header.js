@@ -7,7 +7,8 @@ import {
   Badge,
   FormControl,
   MenuItem,
-  Select
+  Select,
+  FormHelperText
 } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
@@ -30,10 +31,10 @@ function Header(props) {
     <AppBar position="static">
       <Toolbar>
         <Grid container alignItems="center" >
-          <Grid item xs={9}>
+          <Grid item xs={7} lg={9}>
             <Typography>Pizza portal</Typography>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={3} lg={1} >
             <FormControl>
               <Select
                 style={{ color: "#ffffff" }}
@@ -50,9 +51,10 @@ function Header(props) {
                   )
                 }
               </Select>
+              <FormHelperText style={{ color: "#ffffff" }}>Wybrana pizzeria</FormHelperText>
             </FormControl>
           </Grid>
-          <Grid item xs={1} container alignItems="center" justify="center">
+          <Grid item xs={2} container alignItems="center" justify="center">
             <IconButton onClick={openBackdropCart}>
               <Badge
                 badgeContent={numOfItemsInCart}

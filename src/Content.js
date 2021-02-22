@@ -60,7 +60,7 @@ function Content(props) {
   const sortValue = sort === "name" ? "name" : "price";
 
   return (
-    <Grid container direction="row" spacing={2} alignItems="flex-start">
+    <Grid item xs={12} container direction="row" spacing={2} alignItems="flex-start" justify="center">
       <Grid item xs={12}>
         <FormControl className={classes.formControl}>
           <InputLabel>Sortuj według</InputLabel>
@@ -92,7 +92,7 @@ function Content(props) {
           >
             {
               sizes.map(size =>
-                <MenuItem value={size.value}>{size.name} - {size.cm} cm</MenuItem>)
+                <MenuItem key={size.value} value={size.value}>{size.name} - {size.cm} cm</MenuItem>)
             }
           </Select>
         </FormControl>

@@ -95,11 +95,11 @@ function App() {
               <Cart cart={cart} data={pizzas} dispatch={dispatch} />
             </Dialog>
           </Backdrop>
-          <Grid item container xs={12}>
+          <Grid item container xs={12} >
             <Grid item xs={3} sm={2}>
               <Navigation />
             </Grid>
-            <Grid item xs={9} sm={9}>
+            <Grid item xs={9} sm={10} >
               <Switch>
                 <Route exact path="/">
                   <Content dispatch={dispatch} data={pizzas} sizes={sizes} />
