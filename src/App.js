@@ -36,7 +36,7 @@ function App() {
     "https://www.maniasmaku.pl/api/v1/sites/restaurant_menu/25265/pl"
   );
   const pizzas = data.pizzas;
-  console.log(pizzas);
+  const sizes = data.sizes;
 
   useEffect(() => localStorage.setItem("cart", JSON.stringify(cart)), [cart]);
 
@@ -49,43 +49,47 @@ function App() {
   };
 
   return (
-    <Grid container direction="column">
-      <Grid item xs={12}>
-        <Header cart={cart} openBackdropCart={openBackdropCart} />
-      </Grid>
+    <>
+      {!loading && !error && (
+        <Grid container direction="column">
 
-      <Backdrop className={classes.backdrop} open={cartVisible}>
-        <Dialog
-          open={cartVisible}
-          onClose={closeBackdropCart}
-          className={classes.cartDialog}
-          transitionDuration={500}
-        >
-          <Cart cart={cart} data={pizzas} dispatch={dispatch} />
-        </Dialog>
-      </Backdrop>
-      <Grid item container xs={12}>
-        <Grid item xs={3} sm={2}>
-          <Navigation />
+          <Grid item xs={12}>
+            <Header data={pizzas} cart={cart} openBackdropCart={openBackdropCart} />
+          </Grid>
+
+          <Backdrop className={classes.backdrop} open={cartVisible}>
+            <Dialog
+              open={cartVisible}
+              onClose={closeBackdropCart}
+              className={classes.cartDialog}
+              transitionDuration={500}
+            >
+              <Cart cart={cart} data={pizzas} dispatch={dispatch} />
+            </Dialog>
+          </Backdrop>
+          <Grid item container xs={12}>
+            <Grid item xs={3} sm={2}>
+              <Navigation />
+            </Grid>
+            <Grid item xs={9} sm={9}>
+              <Switch>
+                <Route exact path="/">
+                  <Content dispatch={dispatch} data={pizzas} sizes={sizes} />
+                </Route>
+                <Route path="/cart">
+                  <Cart cart={cart} data={pizzas} dispatch={dispatch} />
+                </Route>
+              </Switch>
+            </Grid>
+          </Grid>
+          <Grid container item xs={12} justify="center">
+            <Footer />
+          </Grid>
+
         </Grid>
-        <Grid item xs={9} sm={9}>
-          {!loading && !error && (
-            <Switch>
-              <Route exact path="/">
-                <Content dispatch={dispatch} data={pizzas} />
-              </Route>
-              <Route path="/cart">
-                <Cart cart={cart} data={pizzas} dispatch={dispatch} />
-              </Route>
-            </Switch>
-          )}
-          {error && <Error />}
-        </Grid>
-      </Grid>
-      <Grid container item xs={12} justify="center">
-        <Footer />
-      </Grid>
-    </Grid>
+      )}
+      {error && <Error />}
+    </>
   );
 }
 
