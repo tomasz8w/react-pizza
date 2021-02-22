@@ -11,7 +11,7 @@ function PizzaItemHeader(props) {
   };
 
   return (
-    <div>
+    <>
       <CardHeader
         title={pizza.name}
         subheader={getPizzaPrice() + " zł"}
@@ -31,7 +31,7 @@ function PizzaItemHeader(props) {
           image={"https://restaumatic.imgix.net" + pizza.image}
         />
       ) : null}
-    </div>
+    </>
   );
 }
 
