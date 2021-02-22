@@ -10,6 +10,16 @@ import { Switch, Route } from "react-router-dom";
 import useFetch from "./services/useFetch";
 import cartReducer from "./CartReducer";
 
+const restaurants = [{
+  "name": "Mania smaku",
+  "url": "https://www.maniasmaku.pl/api/v1/sites/restaurant_menu/25265/pl"
+},
+{
+  "name": "Roma",
+  "url": "https://www.pizzeriaroma.pl/api/v1/sites/restaurant_menu/972/pl"
+}
+]
+
 let initCart;
 try {
   initCart = JSON.parse(localStorage.getItem("cart")) ?? [];
@@ -31,9 +41,10 @@ function App() {
   const classes = useStyles();
   const [cart, dispatch] = useReducer(cartReducer, initCart);
   const [cartVisible, setCartVisible] = useState(false);
+  const [selectedRestaurant, setSelectedRestaurant] = useState(restaurants[0]);
 
   const { data, error, loading } = useFetch(
-    "https://www.maniasmaku.pl/api/v1/sites/restaurant_menu/25265/pl"
+    selectedRestaurant.url
   );
   const pizzas = data.pizzas;
   const sizes = data.sizes;
@@ -54,7 +65,13 @@ function App() {
         <Grid container direction="column">
 
           <Grid item xs={12}>
-            <Header data={pizzas} cart={cart} openBackdropCart={openBackdropCart} />
+            <Header
+              data={pizzas}
+              cart={cart}
+              openBackdropCart={openBackdropCart}
+              restaurants={restaurants}
+              selectedRestaurant={selectedRestaurant}
+              setSelectedRestaurant={setSelectedRestaurant} />
           </Grid>
 
           <Backdrop className={classes.backdrop} open={cartVisible}>
