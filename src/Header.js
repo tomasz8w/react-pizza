@@ -8,12 +8,19 @@ import {
   FormControl,
   MenuItem,
   Select,
-  FormHelperText
+  FormHelperText,
 } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
 function Header(props) {
-  const { openBackdropCart, cart, data, restaurants, selectedRestaurant, setSelectedRestaurant } = props;
+  const {
+    openBackdropCart,
+    cart,
+    data,
+    restaurants,
+    selectedRestaurant,
+    setSelectedRestaurant,
+  } = props;
 
   const numOfItemsInCart = cart
     .map((e) => e.quantity)
@@ -30,28 +37,31 @@ function Header(props) {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Grid container alignItems="center" >
+        <Grid container alignItems="center">
           <Grid item xs={7} lg={9}>
             <Typography>Pizza portal</Typography>
           </Grid>
-          <Grid item xs={3} lg={1} >
+          <Grid item xs={3} lg={1}>
             <FormControl>
               <Select
                 style={{ color: "#ffffff" }}
                 value={selectedRestaurant.url}
                 onChange={(event) => {
-                  const selected = restaurants.find(r => r.url === event.target.value);
+                  const selected = restaurants.find(
+                    (r) => r.url === event.target.value
+                  );
                   setSelectedRestaurant(selected);
-                }
-                }
+                }}
               >
-                {
-                  restaurants.map(restaurant =>
-                    <MenuItem key={restaurant.url} value={restaurant.url}>{restaurant.name}</MenuItem>
-                  )
-                }
+                {restaurants.map((restaurant) => (
+                  <MenuItem key={restaurant.url} value={restaurant.url}>
+                    {restaurant.name}
+                  </MenuItem>
+                ))}
               </Select>
-              <FormHelperText style={{ color: "#ffffff" }}>Wybrana pizzeria</FormHelperText>
+              <FormHelperText style={{ color: "#ffffff" }}>
+                Wybrana pizzeria
+              </FormHelperText>
             </FormControl>
           </Grid>
           <Grid item xs={2} container alignItems="center" justify="center">

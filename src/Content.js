@@ -51,7 +51,7 @@ function Content(props) {
 
   useEffect(() => {
     setSelectedSize(sizes[0].value);
-  }, [sizes])
+  }, [sizes]);
 
   useEffect(() => {
     handleSortChange(sortValue);
@@ -60,7 +60,15 @@ function Content(props) {
   const sortValue = sort === "name" ? "name" : "price";
 
   return (
-    <Grid item xs={12} container direction="row" spacing={2} alignItems="flex-start" justify="center">
+    <Grid
+      item
+      xs={12}
+      container
+      direction="row"
+      spacing={2}
+      alignItems="flex-start"
+      justify="center"
+    >
       <Grid item xs={12}>
         <FormControl className={classes.formControl}>
           <InputLabel>Sortuj według</InputLabel>
@@ -90,10 +98,11 @@ function Content(props) {
             }}
             value={selectedSize}
           >
-            {
-              sizes.map(size =>
-                <MenuItem key={size.value} value={size.value}>{size.name} - {size.cm} cm</MenuItem>)
-            }
+            {sizes.map((size) => (
+              <MenuItem key={size.value} value={size.value}>
+                {size.name} - {size.cm} cm
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
         <FormControl className={classes.formControl}>
@@ -107,8 +116,8 @@ function Content(props) {
 
       {(onlyVegan
         ? sortedPizzaList.filter(
-          (pizza) => pizza.vegetarian && pizza.price[selectedSize] > 0
-        )
+            (pizza) => pizza.vegetarian && pizza.price[selectedSize] > 0
+          )
         : sortedPizzaList.filter((pizza) => pizza.price[selectedSize] > 0)
       ).map((pizza) => (
         <PizzaItem

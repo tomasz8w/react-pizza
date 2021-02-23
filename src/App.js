@@ -11,26 +11,30 @@ import useFetch from "./services/useFetch";
 import cartReducer from "./CartReducer";
 import useOnMountedEffect from "./services/useOnMountedEffect";
 
-const restaurants = [{
-  "name": "Mania smaku",
-  "url": "https://www.maniasmaku.pl/api/v1/sites/restaurant_menu/25265/pl"
-},
-{
-  "name": "Roma",
-  "url": "https://www.pizzeriaroma.pl/api/v1/sites/restaurant_menu/972/pl"
-}, {
-  "name": "Favola",
-  "url": "https://www.pizzerialafavola.pl/api/v1/sites/restaurant_menu/5770/pl"
-},
-{
-  "name": "Manufaktura Pizzy",
-  "url": "https://www.manufakturapizzy.pl/api/v1/sites/restaurant_menu/28740/pl"
-},
-{
-  "name": "New York Pizza",
-  "url": "https://new-york-pizza-department-legnica.skubacz.pl/api/v1/sites/restaurant_menu/29655/pl"
-}
-]
+const restaurants = [
+  {
+    name: "Mania smaku",
+    url: "https://www.maniasmaku.pl/api/v1/sites/restaurant_menu/25265/pl",
+  },
+  {
+    name: "Roma",
+    url: "https://www.pizzeriaroma.pl/api/v1/sites/restaurant_menu/972/pl",
+  },
+  {
+    name: "Favola",
+    url: "https://www.pizzerialafavola.pl/api/v1/sites/restaurant_menu/5770/pl",
+  },
+  {
+    name: "Manufaktura Pizzy",
+    url:
+      "https://www.manufakturapizzy.pl/api/v1/sites/restaurant_menu/28740/pl",
+  },
+  {
+    name: "New York Pizza",
+    url:
+      "https://new-york-pizza-department-legnica.skubacz.pl/api/v1/sites/restaurant_menu/29655/pl",
+  },
+];
 
 let initCart;
 let initRestaurant;
@@ -109,11 +113,11 @@ function App() {
               <Cart cart={cart} data={pizzas} dispatch={dispatch} />
             </Dialog>
           </Backdrop>
-          <Grid item container xs={12} >
+          <Grid item container xs={12}>
             <Grid item xs={3} sm={2}>
               <Navigation />
             </Grid>
-            <Grid item xs={9} sm={10} >
+            <Grid item xs={9} sm={10}>
               <Switch>
                 <Route exact path="/">
                   <Content dispatch={dispatch} data={pizzas} sizes={sizes} />
