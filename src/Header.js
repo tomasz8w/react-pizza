@@ -11,16 +11,17 @@ import {
   FormHelperText,
 } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import { useCart } from "./services/cartContext";
 
 function Header(props) {
   const {
     openBackdropCart,
-    cart,
     data,
     restaurants,
     selectedRestaurant,
     setSelectedRestaurant,
   } = props;
+  const { cart } = useCart();
 
   const numOfItemsInCart = cart
     .map((e) => e.quantity)

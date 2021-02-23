@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
 
 function Content(props) {
   const pizzaList = props.data;
-  const dispatch = props.dispatch;
   const sizes = props.sizes;
 
   const [selectedSize, setSelectedSize] = useState(2);
@@ -120,12 +119,7 @@ function Content(props) {
           )
         : sortedPizzaList.filter((pizza) => pizza.price[selectedSize] > 0)
       ).map((pizza) => (
-        <PizzaItem
-          pizza={pizza}
-          key={pizza.id}
-          selectedSize={selectedSize}
-          dispatch={dispatch}
-        />
+        <PizzaItem pizza={pizza} key={pizza.id} selectedSize={selectedSize} />
       ))}
     </Grid>
   );

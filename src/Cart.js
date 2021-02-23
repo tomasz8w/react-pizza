@@ -13,10 +13,11 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
+
+import { useCart } from "./services/cartContext";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -36,9 +37,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Cart(props) {
-  const cart = props.cart;
   const data = props.data;
-  const dispatch = props.dispatch;
+
+  const { cart, dispatch } = useCart();
 
   const classes = useStyles();
 

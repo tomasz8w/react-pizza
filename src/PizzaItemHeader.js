@@ -1,10 +1,12 @@
 import { CardHeader, CardMedia, IconButton } from "@material-ui/core";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
+import { useCart } from "./services/cartContext";
 
 function PizzaItemHeader(props) {
   const pizza = props.pizza;
-  const dispatch = props.dispatch;
   const selectedSize = props.selectedSize;
+
+  const { dispatch } = useCart();
 
   const getPizzaPrice = () => {
     return pizza.price[selectedSize];

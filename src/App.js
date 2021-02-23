@@ -4,12 +4,12 @@ import Content from "./Content";
 import Navigation from "./Navigation";
 import Cart from "./Cart";
 import Error from "./Error";
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect } from "react";
 import { Grid, Backdrop, makeStyles, Dialog } from "@material-ui/core";
 import { Switch, Route } from "react-router-dom";
 import useFetch from "./services/useFetch";
-import cartReducer from "./CartReducer";
 import useOnMountedEffect from "./services/useOnMountedEffect";
+import { useCart } from "./services/cartContext";
 
 const restaurants = [
   {
@@ -36,13 +36,7 @@ const restaurants = [
   },
 ];
 
-let initCart;
 let initRestaurant;
-try {
-  initCart = JSON.parse(localStorage.getItem("cart")) ?? [];
-} catch {
-  initCart = [];
-}
 
 try {
   initRestaurant =
@@ -63,15 +57,15 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
-  const [cart, dispatch] = useReducer(cartReducer, initCart);
+
   const [cartVisible, setCartVisible] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState(initRestaurant);
 
   const { data, error, loading } = useFetch(selectedRestaurant.url);
+  const { dispatch } = useCart();
   const pizzas = data.pizzas;
   const sizes = data.sizes;
 
-  useEffect(() => localStorage.setItem("cart", JSON.stringify(cart)), [cart]);
   useEffect(
     () =>
       localStorage.setItem("restaurant", JSON.stringify(selectedRestaurant)),
@@ -95,7 +89,6 @@ function App() {
           <Grid item xs={12}>
             <Header
               data={pizzas}
-              cart={cart}
               openBackdropCart={openBackdropCart}
               restaurants={restaurants}
               selectedRestaurant={selectedRestaurant}
@@ -110,7 +103,7 @@ function App() {
               className={classes.cartDialog}
               transitionDuration={500}
             >
-              <Cart cart={cart} data={pizzas} dispatch={dispatch} />
+              <Cart data={pizzas} />
             </Dialog>
           </Backdrop>
           <Grid item container xs={12}>
@@ -120,10 +113,10 @@ function App() {
             <Grid item xs={9} sm={10}>
               <Switch>
                 <Route exact path="/">
-                  <Content dispatch={dispatch} data={pizzas} sizes={sizes} />
+                  <Content data={pizzas} sizes={sizes} />
                 </Route>
                 <Route path="/cart">
-                  <Cart cart={cart} data={pizzas} dispatch={dispatch} />
+                  <Cart data={pizzas} />
                 </Route>
               </Switch>
             </Grid>
