@@ -51,7 +51,7 @@ function Content(props) {
 
   useEffect(() => {
     setSelectedSize(sizes[0].value);
-  }, [])
+  }, [sizes])
 
   useEffect(() => {
     handleSortChange(sortValue);
