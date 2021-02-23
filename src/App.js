@@ -9,6 +9,7 @@ import { Grid, Backdrop, makeStyles, Dialog } from "@material-ui/core";
 import { Switch, Route } from "react-router-dom";
 import useFetch from "./services/useFetch";
 import cartReducer from "./CartReducer";
+import useOnMountedEffect from "./services/useOnMountedEffect";
 
 const restaurants = [{
   "name": "Mania smaku",
@@ -32,10 +33,18 @@ const restaurants = [{
 ]
 
 let initCart;
+let initRestaurant;
 try {
   initCart = JSON.parse(localStorage.getItem("cart")) ?? [];
 } catch {
   initCart = [];
+}
+
+try {
+  initRestaurant =
+    JSON.parse(localStorage.getItem("restaurant")) ?? restaurants[0];
+} catch {
+  initRestaurant = restaurants[0];
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -52,15 +61,20 @@ function App() {
   const classes = useStyles();
   const [cart, dispatch] = useReducer(cartReducer, initCart);
   const [cartVisible, setCartVisible] = useState(false);
-  const [selectedRestaurant, setSelectedRestaurant] = useState(restaurants[0]);
+  const [selectedRestaurant, setSelectedRestaurant] = useState(initRestaurant);
 
-  const { data, error, loading } = useFetch(
-    selectedRestaurant.url
-  );
+  const { data, error, loading } = useFetch(selectedRestaurant.url);
   const pizzas = data.pizzas;
   const sizes = data.sizes;
 
   useEffect(() => localStorage.setItem("cart", JSON.stringify(cart)), [cart]);
+  useEffect(
+    () =>
+      localStorage.setItem("restaurant", JSON.stringify(selectedRestaurant)),
+    [selectedRestaurant]
+  );
+
+  useOnMountedEffect(() => dispatch({ type: "clear" }), [selectedRestaurant]);
 
   const openBackdropCart = () => {
     setCartVisible(true);
@@ -74,7 +88,6 @@ function App() {
     <>
       {!loading && !error && (
         <Grid container direction="column">
-
           <Grid item xs={12}>
             <Header
               data={pizzas}
@@ -82,7 +95,8 @@ function App() {
               openBackdropCart={openBackdropCart}
               restaurants={restaurants}
               selectedRestaurant={selectedRestaurant}
-              setSelectedRestaurant={setSelectedRestaurant} />
+              setSelectedRestaurant={setSelectedRestaurant}
+            />
           </Grid>
 
           <Backdrop className={classes.backdrop} open={cartVisible}>
@@ -113,7 +127,6 @@ function App() {
           <Grid container item xs={12} justify="center">
             <Footer />
           </Grid>
-
         </Grid>
       )}
       {error && <Error />}
