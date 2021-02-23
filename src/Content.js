@@ -31,7 +31,7 @@ function Content(props) {
 
   const [selectedSize, setSelectedSize] = useState(2);
   const [onlyVegan, setOnlyVegan] = useState(false);
-  const [sort, setSort] = useState("name");
+  const [sort, setSort] = useState("index");
   const [reverseSorting, setReverseSorting] = useState(false);
   const sortedPizzaList = reverseSorting
     ? sortBy(pizzaList, sort)
@@ -40,12 +40,12 @@ function Content(props) {
   const classes = useStyles(reverseSorting);
 
   function handleSortChange(sortType) {
-    if (sortType === "name") {
-      setSort("name");
+    if (sortType === "index") {
+      setSort("index");
     } else if (sortType === "price") {
       setSort(`price[${selectedSize}]`);
     } else {
-      setSort("name");
+      setSort("index");
     }
   }
 
@@ -57,7 +57,7 @@ function Content(props) {
     handleSortChange(sortValue);
   }, [selectedSize]);
 
-  const sortValue = sort === "name" ? "name" : "price";
+  const sortValue = sort === "index" ? "index" : "price";
 
   return (
     <Grid
@@ -78,7 +78,7 @@ function Content(props) {
             }}
             value={sortValue}
           >
-            <MenuItem value="name">Nazwa</MenuItem>
+            <MenuItem value="index">Domyślnie</MenuItem>
             <MenuItem value="price">Cena</MenuItem>
           </Select>
         </FormControl>
