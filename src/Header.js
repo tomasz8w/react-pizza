@@ -12,12 +12,12 @@ import {
 } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { useCart } from "./services/cartContext";
+import restaurants from "./restaurants";
 
 function Header(props) {
   const {
     openBackdropCart,
     data,
-    restaurants,
     selectedRestaurant,
     setSelectedRestaurant,
   } = props;
