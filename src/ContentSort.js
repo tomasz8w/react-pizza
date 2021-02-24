@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ContentSort({
   selectedSize,
-  sortedPizzaList,
+  listToSort,
   setSortedPizzaList,
 }) {
   const [sort, setSort] = useState("index");
@@ -42,8 +42,8 @@ export default function ContentSort({
   }
 
   useEffect(() => {
-    setSortedPizzaList(sortList(sortedPizzaList, sort, reverseSorting));
-  }, [sort, reverseSorting]);
+    setSortedPizzaList(sortList(listToSort, sort, reverseSorting));
+  }, [listToSort, sort, reverseSorting]);
 
   useEffect(() => {
     handleSortChange(sortValue);

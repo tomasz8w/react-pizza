@@ -1,16 +1,8 @@
 import PizzaItem from "./PizzaItem";
 import ContentSort from "./ContentSort";
+import ContentFilter from "./ContentFilter";
 import { useEffect, useState } from "react";
-import {
-  Checkbox,
-  FormControl,
-  FormHelperText,
-  Grid,
-  InputLabel,
-  makeStyles,
-  MenuItem,
-  Select,
-} from "@material-ui/core";
+import { Grid, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -23,7 +15,7 @@ function Content(props) {
   const sizes = props.sizes;
 
   const [selectedSize, setSelectedSize] = useState(2);
-  const [onlyVegan, setOnlyVegan] = useState(false);
+  const [filteredPizzaList, setFilteredPizzaList] = useState(pizzaList);
   const [sortedPizzaList, setSortedPizzaList] = useState(pizzaList);
 
   const classes = useStyles();
@@ -45,41 +37,21 @@ function Content(props) {
       <Grid item xs={12}>
         <ContentSort
           selectedSize={selectedSize}
-          sortedPizzaList={sortedPizzaList}
+          listToSort={filteredPizzaList}
           setSortedPizzaList={setSortedPizzaList}
         />
       </Grid>
       <Grid item xs={12}>
-        <FormControl className={classes.formControl}>
-          <InputLabel>Rozmiar dania</InputLabel>
-          <Select
-            onChange={(event) => {
-              setSelectedSize(event.target.value);
-            }}
-            value={selectedSize}
-          >
-            {sizes.map((size) => (
-              <MenuItem key={size.value} value={size.value}>
-                {size.name} - {size.cm} cm
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl className={classes.formControl}>
-          <FormHelperText>Vege</FormHelperText>
-          <Checkbox
-            checked={onlyVegan}
-            onChange={(event) => setOnlyVegan(event.target.checked)}
-          />
-        </FormControl>
+        <ContentFilter
+          sizes={sizes}
+          selectedSize={selectedSize}
+          setSelectedSize={setSelectedSize}
+          pizzaList={pizzaList}
+          setFilteredPizzaList={setFilteredPizzaList}
+        />
       </Grid>
 
-      {(onlyVegan
-        ? sortedPizzaList.filter(
-            (pizza) => pizza.vegetarian && pizza.price[selectedSize] > 0
-          )
-        : sortedPizzaList.filter((pizza) => pizza.price[selectedSize] > 0)
-      ).map((pizza) => (
+      {sortedPizzaList.map((pizza) => (
         <PizzaItem pizza={pizza} key={pizza.id} selectedSize={selectedSize} />
       ))}
     </Grid>
