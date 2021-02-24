@@ -1,8 +1,7 @@
-import sortBy from "lodash.sortby";
 import PizzaItem from "./PizzaItem";
+import ContentSort from "./ContentSort";
 import { useEffect, useState } from "react";
 import {
-  IconButton,
   Checkbox,
   FormControl,
   FormHelperText,
@@ -12,15 +11,10 @@ import {
   MenuItem,
   Select,
 } from "@material-ui/core";
-import SortIcon from "@material-ui/icons/Sort";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(2),
-  },
-  iconSort: {
-    transform: (reverseSorting) =>
-      reverseSorting ? "rotate(180deg)" : "rotate(0deg)",
   },
 }));
 
@@ -30,33 +24,13 @@ function Content(props) {
 
   const [selectedSize, setSelectedSize] = useState(2);
   const [onlyVegan, setOnlyVegan] = useState(false);
-  const [sort, setSort] = useState("index");
-  const [reverseSorting, setReverseSorting] = useState(false);
-  const sortedPizzaList = reverseSorting
-    ? sortBy(pizzaList, sort)
-    : sortBy(pizzaList, sort).reverse();
+  const [sortedPizzaList, setSortedPizzaList] = useState(pizzaList);
 
-  const classes = useStyles(reverseSorting);
-
-  function handleSortChange(sortType) {
-    if (sortType === "index") {
-      setSort("index");
-    } else if (sortType === "price") {
-      setSort(`price[${selectedSize}]`);
-    } else {
-      setSort("index");
-    }
-  }
+  const classes = useStyles();
 
   useEffect(() => {
     setSelectedSize(sizes[0].value);
   }, [sizes]);
-
-  useEffect(() => {
-    handleSortChange(sortValue);
-  }, [selectedSize]);
-
-  const sortValue = sort === "index" ? "index" : "price";
 
   return (
     <Grid
@@ -69,26 +43,13 @@ function Content(props) {
       justify="center"
     >
       <Grid item xs={12}>
-        <FormControl className={classes.formControl}>
-          <InputLabel>Sortuj według</InputLabel>
-          <Select
-            onChange={(event) => {
-              handleSortChange(event.target.value);
-            }}
-            value={sortValue}
-          >
-            <MenuItem value="index">Domyślnie</MenuItem>
-            <MenuItem value="price">Cena</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl className={classes.formControl}>
-          <IconButton
-            className={classes.iconSort}
-            onClick={() => setReverseSorting(!reverseSorting)}
-          >
-            <SortIcon />
-          </IconButton>
-        </FormControl>
+        <ContentSort
+          selectedSize={selectedSize}
+          sortedPizzaList={sortedPizzaList}
+          setSortedPizzaList={setSortedPizzaList}
+        />
+      </Grid>
+      <Grid item xs={12}>
         <FormControl className={classes.formControl}>
           <InputLabel>Rozmiar dania</InputLabel>
           <Select
