@@ -7,10 +7,12 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  TextField,
 } from "@material-ui/core";
 
 export default function ContentFilter(props) {
   const [onlyVegan, setOnlyVegan] = useState(false);
+  const [filterKeywords, setFilterKeywords] = useState("");
   const {
     sizes,
     selectedSize,
@@ -20,14 +22,17 @@ export default function ContentFilter(props) {
   } = props;
 
   useEffect(() => {
-    const filteredList = onlyVegan
+    const filteredList = (onlyVegan
       ? pizzaList.filter(
           (pizza) => pizza.vegetarian && pizza.price[selectedSize] > 0
         )
-      : pizzaList.filter((pizza) => pizza.price[selectedSize] > 0);
+      : pizzaList.filter((pizza) => pizza.price[selectedSize] > 0)
+    ).filter((pizza) =>
+      pizza.description.toLowerCase().includes(filterKeywords)
+    );
 
     setFilteredPizzaList(filteredList);
-  }, [onlyVegan, selectedSize, pizzaList]);
+  }, [onlyVegan, selectedSize, pizzaList, filterKeywords]);
 
   return (
     <FormControl>
@@ -50,6 +55,15 @@ export default function ContentFilter(props) {
         <Checkbox
           checked={onlyVegan}
           onChange={(event) => setOnlyVegan(event.target.checked)}
+        />
+        <TextField
+          id="outlined-search"
+          label="Filtruj składniki"
+          type="search"
+          variant="outlined"
+          onChange={(event) =>
+            setFilterKeywords(event.target.value.toLowerCase())
+          }
         />
       </FormGroup>
     </FormControl>
