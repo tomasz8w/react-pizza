@@ -5,7 +5,7 @@ export default function cartReducer(state, action) {
 
   switch (action.type) {
     case "add": {
-      const { id, size } = action;
+      const { id, size, price } = action;
       const productInCart = getProductFromCart(id, size);
       if (productInCart) {
         return state.map((i) =>
@@ -14,7 +14,7 @@ export default function cartReducer(state, action) {
             : i
         );
       } else {
-        return [...state, { id, size, quantity: 1 }];
+        return [...state, { id, size, quantity: 1, price }];
       }
     }
     case "increment": {

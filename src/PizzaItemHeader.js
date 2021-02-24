@@ -20,7 +20,12 @@ function PizzaItemHeader(props) {
         action={
           <IconButton
             onClick={() => {
-              dispatch({ type: "add", id: pizza.id, size: selectedSize });
+              dispatch({
+                type: "add",
+                id: pizza.id,
+                size: selectedSize,
+                price: getPizzaPrice(),
+              });
             }}
           >
             <AddShoppingCartIcon />

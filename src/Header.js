@@ -15,25 +15,17 @@ import { useCart } from "./services/cartContext";
 import restaurants from "./restaurants";
 
 function Header(props) {
-  const {
-    openBackdropCart,
-    data,
-    selectedRestaurant,
-    setSelectedRestaurant,
-  } = props;
+  const { openBackdropCart, selectedRestaurant, setSelectedRestaurant } = props;
   const { cart } = useCart();
 
   const numOfItemsInCart = cart
     .map((e) => e.quantity)
     .reduce((sum, e) => sum + e, 0);
 
-  const cartSumValue = cart
-    .map((cartElement) =>
-      data
-        .filter((d) => d.id === cartElement.id)
-        .map((d) => d.price[cartElement.size] * cartElement.quantity)
-    )
-    .reduce((sum, e) => sum + e[0], 0);
+  const cartSumValue = cart.reduce(
+    (sum, cartElement) => sum + cartElement.price * cartElement.quantity,
+    0
+  );
 
   return (
     <AppBar position="static">

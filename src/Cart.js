@@ -43,13 +43,10 @@ export default function Cart(props) {
 
   const classes = useStyles();
 
-  const cartSumValue = cart
-    .map((cartElement) =>
-      data
-        .filter((d) => d.id === cartElement.id)
-        .map((d) => d.price[cartElement.size] * cartElement.quantity)
-    )
-    .reduce((sum, e) => sum + e[0], 0);
+  const cartSumValue = cart.reduce(
+    (sum, cartElement) => sum + cartElement.price * cartElement.quantity,
+    0
+  );
 
   return (
     <Grid item xs={12}>
@@ -127,13 +124,7 @@ export default function Cart(props) {
                       <AddIcon fontSize="small" />
                     </IconButton>
                   </TableCell>
-                  <TableCell>
-                    {data
-                      .filter((pizza) => pizza.id === i.id)
-                      .map((pizza) => pizza.price[i.size]) *
-                      i.quantity +
-                      " zł"}
-                  </TableCell>
+                  <TableCell>{i.price * i.quantity + " zł"}</TableCell>
                   <TableCell>
                     <IconButton
                       onClick={() => {

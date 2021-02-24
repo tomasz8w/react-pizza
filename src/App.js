@@ -64,7 +64,6 @@ function App() {
         <Grid container direction="column">
           <Grid item xs={12}>
             <Header
-              data={pizzas}
               openBackdropCart={openBackdropCart}
               selectedRestaurant={selectedRestaurant}
               setSelectedRestaurant={setSelectedRestaurant}
