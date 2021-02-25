@@ -4,6 +4,7 @@ import Content from "./Content/Content";
 import Navigation from "./Navigation";
 import Cart from "./Cart";
 import Error from "./Error";
+import Loading from "./Loading";
 import { useState, useEffect } from "react";
 import { Grid, Backdrop, makeStyles, Dialog } from "@material-ui/core";
 import { Switch, Route } from "react-router-dom";
@@ -58,8 +59,19 @@ function App() {
     setCartVisible(false);
   };
 
-  if (loading || error) return <Error />;
-
+  if (error) return <Error />;
+  if (loading) {
+    return (
+      <Grid container direction="row">
+        <Grid container justify="center" style={{ padding: "50px" }}>
+          <Loading />
+        </Grid>
+        <Grid container justify="center">
+          <Footer />
+        </Grid>
+      </Grid>
+    );
+  }
   return (
     <Grid container direction="column">
       <Grid item xs={12}>
