@@ -9,7 +9,7 @@ import {
   FormGroup,
 } from "@material-ui/core";
 import SortIcon from "@material-ui/icons/Sort";
-import sortList from "./utils/sortList";
+import sortList from "../utils/sortList";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {

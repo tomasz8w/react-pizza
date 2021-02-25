@@ -1,6 +1,6 @@
 import Header from "./Header";
 import Footer from "./Footer";
-import Content from "./Content";
+import Content from "./Content/Content";
 import Navigation from "./Navigation";
 import Cart from "./Cart";
 import Error from "./Error";
@@ -58,50 +58,47 @@ function App() {
     setCartVisible(false);
   };
 
-  return (
-    <>
-      {!loading && !error && (
-        <Grid container direction="column">
-          <Grid item xs={12}>
-            <Header
-              openBackdropCart={openBackdropCart}
-              selectedRestaurant={selectedRestaurant}
-              setSelectedRestaurant={setSelectedRestaurant}
-            />
-          </Grid>
+  if (loading || error) return <Error />;
 
-          <Backdrop className={classes.backdrop} open={cartVisible}>
-            <Dialog
-              open={cartVisible}
-              onClose={closeBackdropCart}
-              className={classes.cartDialog}
-              transitionDuration={500}
-            >
-              <Cart data={pizzas} />
-            </Dialog>
-          </Backdrop>
-          <Grid item container xs={12}>
-            <Grid item xs={3} sm={2}>
-              <Navigation />
-            </Grid>
-            <Grid item xs={9} sm={10}>
-              <Switch>
-                <Route exact path="/">
-                  <Content data={pizzas} sizes={sizes} />
-                </Route>
-                <Route path="/cart">
-                  <Cart data={pizzas} />
-                </Route>
-              </Switch>
-            </Grid>
-          </Grid>
-          <Grid container item xs={12} justify="center">
-            <Footer />
-          </Grid>
+  return (
+    <Grid container direction="column">
+      <Grid item xs={12}>
+        <Header
+          openBackdropCart={openBackdropCart}
+          selectedRestaurant={selectedRestaurant}
+          setSelectedRestaurant={setSelectedRestaurant}
+        />
+      </Grid>
+
+      <Backdrop className={classes.backdrop} open={cartVisible}>
+        <Dialog
+          open={cartVisible}
+          onClose={closeBackdropCart}
+          className={classes.cartDialog}
+          transitionDuration={500}
+        >
+          <Cart data={pizzas} />
+        </Dialog>
+      </Backdrop>
+      <Grid item container xs={12}>
+        <Grid item xs={3} sm={2}>
+          <Navigation />
         </Grid>
-      )}
-      {error && <Error />}
-    </>
+        <Grid item xs={9} sm={10}>
+          <Switch>
+            <Route exact path="/">
+              <Content data={pizzas} sizes={sizes} />
+            </Route>
+            <Route path="/cart">
+              <Cart data={pizzas} />
+            </Route>
+          </Switch>
+        </Grid>
+      </Grid>
+      <Grid container item xs={12} justify="center">
+        <Footer />
+      </Grid>
+    </Grid>
   );
 }
 

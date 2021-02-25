@@ -1,6 +1,6 @@
 import { CardHeader, CardMedia, IconButton } from "@material-ui/core";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
-import { useCart } from "./services/cartContext";
+import { useCart } from "../services/cartContext";
 
 function PizzaItemHeader(props) {
   const pizza = props.pizza;
