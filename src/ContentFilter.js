@@ -31,7 +31,8 @@ export default function ContentFilter(props) {
       pizza.description.toLowerCase().includes(filterKeywords)
     );
 
-    setFilteredPizzaList(filteredList);
+    const t = setTimeout(() => setFilteredPizzaList(filteredList), 300);
+    return () => clearTimeout(t);
   }, [onlyVegan, selectedSize, pizzaList, filterKeywords]);
 
   return (
