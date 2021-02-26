@@ -19,12 +19,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const iniIputs = {
-  name: { value: "", error: false },
-  phone: { value: "", error: false },
-  address: { value: "", error: false },
-  postcode: { value: "", error: false },
-};
+const iniIputs = [
+  { id: "name", value: "", error: false },
+  { id: "phone", value: "", error: false },
+  { id: "address1", value: "", error: false },
+  { id: "address2", value: "", error: false },
+  { id: "postcode", value: "", error: false },
+  { id: "city", value: "", error: false },
+];
 
 export default function Cart(props) {
   const { cart, dispatch } = useCart();
@@ -37,6 +39,49 @@ export default function Cart(props) {
     0
   );
 
+  function validateString(value) {
+    if (value.length < 2) return false;
+    return true;
+  }
+  function validatePhoneNb(value) {
+    return true;
+  }
+  function validatePostCode(value) {
+    return true;
+  }
+
+  function validateInputs(id, value) {
+    if (id === "postcode") {
+      return validatePostCode; //validatePostCode(name, value);
+    } else if (id.includes("address") || id === "name" || id === "city") {
+      return validateString(value);
+    } else if (id === "phone") {
+      return validatePhoneNb; //validatePhoneNb(name, value);
+    }
+  }
+
+  function handleInputChange(event) {
+    const id = event.target.id;
+    const value = event.target.value;
+    if (validateInputs(id, value)) {
+      setInputs(
+        inputs.map((input) =>
+          input.id === id ? { ...input, error: false } : input
+        )
+      );
+    } else {
+      setInputs(
+        inputs.map((input) =>
+          input.id === id ? { ...input, error: true } : input
+        )
+      );
+    }
+  }
+
+  function getError(id) {
+    return inputs.filter((i) => i.id === id)[0].error;
+  }
+
   return (
     <Grid container item xs={12} justify="center">
       <Typography variant="h4">PODSUMOWANIE</Typography>
@@ -44,51 +89,57 @@ export default function Cart(props) {
         <form>
           <Grid item xs={12}>
             <TextField
-              error={inputs.name.error}
+              error={getError("name")}
               className={classes.textField}
-              id="form-name"
+              id="name"
               label="Imie"
-              helperText={inputs.name.error ? "Pole obowiazkowe" : ""}
+              helperText={getError("name") ? "Pole obowiazkowe" : ""}
+              onChange={handleInputChange}
             />
 
             <TextField
               className={classes.textFieldShort}
-              error={inputs.phone.error}
-              id="form-phone"
+              error={getError("phone")}
+              id="phone"
               label="Telefon"
-              helperText={inputs.phone.error ? "Pole obowiazkowe" : ""}
+              helperText={getError("phone") ? "Pole obowiazkowe" : ""}
+              onChange={handleInputChange}
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
               className={classes.textField}
-              error={inputs.address.error}
-              id="form-address-1"
+              error={getError("address1")}
+              id="address1"
               label="Ulica"
-              helperText={inputs.address.error ? "Pole obowiazkowe" : ""}
+              helperText={getError("address1") ? "Pole obowiazkowe" : ""}
+              onChange={handleInputChange}
             />
             <TextField
               className={classes.textFieldShort}
-              error={inputs.address.error}
-              id="form-address-2"
+              error={getError("address2")}
+              id="address2"
               label="Nr domu"
-              helperText={inputs.address.error ? "Pole obowiazkowe" : ""}
+              helperText={getError("address2") ? "Pole obowiazkowe" : ""}
+              onChange={handleInputChange}
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
               className={classes.textFieldShort}
-              error={inputs.postcode.error}
-              id="form-address-code"
+              error={getError("postcode")}
+              id="postcode"
               label="Kod pocztowy"
-              helperText={inputs.postcode.error ? "Pole obowiazkowe" : ""}
+              helperText={getError("postcode") ? "Niepoprawny format" : ""}
+              onChange={handleInputChange}
             />
             <TextField
               className={classes.textField}
-              error={inputs.address.error}
-              id="form-address-city"
+              error={getError("city")}
+              id="city"
               label="Miasto"
-              helperText={inputs.address.error ? "Pole obowiazkowe" : ""}
+              helperText={getError("city") ? "Pole obowiazkowe" : ""}
+              onChange={handleInputChange}
             />
           </Grid>
         </form>
