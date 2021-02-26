@@ -10,6 +10,9 @@ function Navigation() {
       <ListItem button component={Link} to="/cart">
         <ListItemText primary="Koszyk" />
       </ListItem>
+      <ListItem button component={Link} to="/summary">
+        <ListItemText primary="Podsumowanie" />
+      </ListItem>
     </List>
   );
 }

@@ -5,6 +5,7 @@ import Navigation from "./Navigation";
 import Cart from "./Cart";
 import Error from "./Error";
 import Loading from "./Loading";
+import Summary from "./Summary";
 import { useState, useEffect } from "react";
 import { Grid, Backdrop, makeStyles, Dialog } from "@material-ui/core";
 import { Switch, Route } from "react-router-dom";
@@ -103,6 +104,9 @@ function App() {
             </Route>
             <Route path="/cart">
               <Cart data={pizzas} />
+            </Route>
+            <Route path="/summary">
+              <Summary />
             </Route>
           </Switch>
         </Grid>
